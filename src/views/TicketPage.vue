@@ -65,7 +65,7 @@ const closeModal = () => {
 
     <Modal
       :is-open="isCreateModalOpen"
-      :on-close="closeModal"
+      @close="closeModal"
       title="Create New Ticket"
     >
       <CreateTicketForm @success="handleCreateSuccess" />

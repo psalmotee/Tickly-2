@@ -2,10 +2,12 @@
 
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../views/HomePage.vue";
+import Features from "../views/LandingPage/Features.vue";
 import Login from "../views/Auth/Login.vue";
 import Signup from "../views/Auth/Signup.vue";
 // 1. Import the new Dashboard component
 import DashboardPage from "../views/dashboard/DashboardPage.vue";
+import TicketPage from "../views/TicketPage.vue";
 // You will also need the Pinia store to implement the navigation guard
 import { useAuthStore } from "../lib/pinnaAuth";
 
@@ -18,6 +20,11 @@ const router = createRouter({
       component: HomePage,
     },
     {
+      path: "/feactures",
+      name: "features",
+      component: Features, 
+    },
+    {
       path: "/signup",
       name: "signup",
       component: Signup,
@@ -27,12 +34,19 @@ const router = createRouter({
       name: "login",
       component: Login,
     },
-    // 2. Add the Dashboard route
+    // Dashboard route
     {
       path: "/dashboard",
       name: "dashboard",
-      component: DashboardPage, // The imported component
-      meta: { requiresAuth: true }, // Optional metadata for protection
+      component: DashboardPage, 
+      meta: { requiresAuth: true }, 
+    },
+    // Ticket route
+    {
+      path: "/tickets",
+      name: "tickets",
+      component: TicketPage, 
+      meta: { requiresAuth: true }, 
     },
   ],
 });
