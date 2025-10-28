@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'; // Replaces next/navigation
 import { RouterLink } from 'vue-router'; // Replaces next/link
 // Assume you'll implement a Pinia store to manage authentication state
 import { useAuthStore } from '../lib/pinnaAuth'; 
+import { storeToRefs } from 'pinia';
 // Placeholders for your Vue-compatible icon components
 import {LogOut, Menu} from 'lucide-vue-next';
 
@@ -12,7 +13,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 // Access session data via the store's getter/state
-const session = computed(() => authStore.session);
+const { session } = storeToRefs(authStore);
 
 // --- STATE (ref replaces useState) ---
 const isMenuOpen = ref(false);

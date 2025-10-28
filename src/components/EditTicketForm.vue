@@ -125,49 +125,6 @@ const handleSubmit = () => {
       />
     </div>
 
-    <!-- Status and Priority Selects -->
-    <div class="grid grid-cols-2 gap-4">
-      <!-- Status Select -->
-      <div>
-        <label
-          for="status"
-          class="block text-sm font-medium text-foreground mb-2"
-        >
-          Status
-        </label>
-        <select
-          id="status"
-          v-model="status"
-          class="w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-          :disabled="isLoading"
-        >
-          <option value="open">Open</option>
-          <option value="in-progress">In Progress</option>
-          <option value="closed">Closed</option>
-        </select>
-      </div>
-
-      <!-- Priority Select -->
-      <div>
-        <label
-          for="priority"
-          class="block text-sm font-medium text-foreground mb-2"
-        >
-          Priority
-        </label>
-        <select
-          id="priority"
-          v-model="priority"
-          class="w-full rounded-lg border border-input bg-background px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-          :disabled="isLoading"
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-    </div>
-
     <!-- Submit Button -->
     <button
       type="submit"
