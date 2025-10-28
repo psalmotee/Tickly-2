@@ -11,8 +11,9 @@ import DeleteConfirmationModal from './DeleteConfirmationModal.vue'; // Assuming
 import { Trash2, ChevronDown, CheckCircle2 } from 'lucide-vue-next'; // Lucide Vue icons
 import { useToast } from 'vue-toastification';
 
-// --- STATE (ref replaces useState) ---
 
+// --- STATE (ref replaces useState) ---
+const toast = useToast();
 const tickets = ref<Ticket[]>([]);
 const deleteModal = ref<{
   isOpen: boolean;
