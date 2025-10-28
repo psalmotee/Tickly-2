@@ -1,4 +1,4 @@
-// Ticket management utilities (Used as-is in Vue 3/TypeScript)
+// Ticket management utilities
 
 export type TicketStatus = "open" | "in-progress" | "closed";
 
@@ -15,17 +15,28 @@ export interface Ticket {
 
 const TICKETS_STORAGE_KEY = "Tickly_tickets";
 
+/**
+ * Retrieves all tickets from local storage, safely handling parsing errors.
+ */
 function getTickets(): Ticket[] {
   try {
     const tickets = localStorage.getItem(TICKETS_STORAGE_KEY);
     return tickets ? JSON.parse(tickets) : [];
-  } catch {
+  } catch (e) {
+    console.error("Error retrieving or parsing tickets from localStorage:", e);
     return [];
   }
 }
 
+/**
+ * Saves the current list of tickets to local storage.
+ */
 function saveTickets(tickets: Ticket[]): void {
-  localStorage.setItem(TICKETS_STORAGE_KEY, JSON.stringify(tickets));
+  try {
+    localStorage.setItem(TICKETS_STORAGE_KEY, JSON.stringify(tickets));
+  } catch (e) {
+    console.error("Error saving tickets to localStorage:", e);
+  }
 }
 
 export function createTicket(
@@ -56,8 +67,12 @@ export function getTicketsByUser(userId: string): Ticket[] {
   return getTickets().filter((ticket) => ticket.userId === userId);
 }
 
-export function getTicketById(id: string): Ticket | undefined {
-  return getTickets().find((ticket) => ticket.id === id);
+/**
+ * Finds a single ticket by its ID. Returns null if not found.
+ * Updated return type from Ticket | undefined to Ticket | null.
+ */
+export function getTicketById(id: string): Ticket | null {
+  return getTickets().find((ticket) => ticket.id === id) || null;
 }
 
 export function updateTicket(
@@ -67,7 +82,7 @@ export function updateTicket(
   const tickets = getTickets();
   const index = tickets.findIndex((ticket) => ticket.id === id);
 
-  if (index === -1) return null;
+  if (index === -1) return null; // The spread operator correctly handles merging partial updates into a full Ticket
 
   tickets[index] = {
     ...tickets[index],
