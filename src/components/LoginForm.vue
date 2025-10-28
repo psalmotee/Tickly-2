@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
+
 import { useRouter, useRoute } from 'vue-router';
 import { login, saveSession } from '../lib/auth';
 import { validateLoginForm } from '../lib/validation';
 import { Eye } from 'lucide-vue-next'; 
+import FormError from './FormError.vue';
 // --- ROUTING ---
 const router = useRouter();
 const route = useRoute(); // useRoute to access query parameters

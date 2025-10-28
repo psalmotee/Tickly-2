@@ -6,10 +6,12 @@ import Features from "../views/LandingPage/Features.vue";
 import Login from "../views/Auth/Login.vue";
 import Signup from "../views/Auth/Signup.vue";
 // 1. Import the new Dashboard component
-import DashboardPage from "../views/dashboard/DashboardPage.vue";
-import TicketPage from "../views/TicketPage.vue";
-// You will also need the Pinia store to implement the navigation guard
+import UsersDashboard from "../views/Users/UsersDashboard.vue";
+import TicketPage from "../views/Users/TicketPage.vue";
+import AdminDashboard from "../views/Admin/AdminDashboard.vue";
 import { useAuthStore } from "../lib/pinnaAuth";
+import AdminTicketList from "../views/Admin/AdminTicketsPage.vue";
+import AdminUsersList from "../views/Admin/AdminUsersPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,7 +24,7 @@ const router = createRouter({
     {
       path: "/feactures",
       name: "features",
-      component: Features, 
+      component: Features,
     },
     {
       path: "/signup",
@@ -34,19 +36,43 @@ const router = createRouter({
       name: "login",
       component: Login,
     },
-    // Dashboard route
+    // Dashboard route for User
     {
       path: "/dashboard",
       name: "dashboard",
-      component: DashboardPage, 
-      meta: { requiresAuth: true }, 
+      component: UsersDashboard,
+      meta: { requiresAuth: true },
     },
-    // Ticket route
+    // Ticket route for User
     {
       path: "/tickets",
       name: "tickets",
-      component: TicketPage, 
-      meta: { requiresAuth: true }, 
+      component: TicketPage,
+      meta: { requiresAuth: true },
+    },
+
+    // Admin routes
+    {
+      path: "/admin",
+      name: "admin",
+      component: AdminDashboard,
+      meta: { requiresAuth: true },
+    },
+
+    // Admin sub-routes
+    {
+      path: "/admin/tickets",
+      name: "ticket",
+      component: AdminTicketList,
+      meta: { requiresAuth: true },
+    },
+
+    // Users List route
+    {
+      path: "/admin/users",
+      name: "users",
+      component: AdminUsersList,
+      meta: { requiresAuth: true },
     },
   ],
 });
