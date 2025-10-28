@@ -1,10 +1,5 @@
 <script setup lang="ts">
-// Import the converted Vue component
 import LoginForm from '../../components/LoginForm.vue'; 
-
-// No need for "use client" or complex imports; 
-// the setup script handles imports and logic.
-// The component is purely presentational and renders the LoginForm.
 </script>
 
 <template>

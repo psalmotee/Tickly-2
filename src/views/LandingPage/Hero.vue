@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-// Placeholder for a Vue-compatible icon component for ArrowRight
 import { ArrowRight } from 'lucide-vue-next';
-
-// Define the features data directly in the script or move to a separate data file if larger
 const features = [
   {
     title: "Create & Track",

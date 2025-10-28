@@ -1,20 +1,14 @@
-// src/main.ts
-
 import { createApp } from "vue";
-// import { createPinia } from "pinia";
+import { useAuthStore } from "./lib/pinnaAuth";
+import { createPinia } from "pinia";
 import App from "./App.vue";
-import router from "./router"; // Assuming your router setup is here
-
-// --- 1. Global CSS Import (Replaces ./globals.css) ---
+import router from "./router";
 import "./style.css";
-
-// --- 2. Toast Library Setup (Replaces react-toastify) ---
-// You will need to install a Vue toast library, e.g., vue-toastification
 // import Toast, { type PluginOptions } from "vue-toastification";
 // import "vue-toastification/dist/index.css";
 
 const app = createApp(App);
-// const pinia = createPinia();
+const pinia = createPinia();
 
 // const toastOptions: PluginOptions = {
 //   position: "top-right",
@@ -23,8 +17,9 @@ const app = createApp(App);
 //   // Add other react-toastify options as needed
 // };
 
-// app.use(pinia);
+app.use(pinia);
 app.use(router);
 // app.use(Toast, toastOptions); // Register toast library
-
+const authStore = useAuthStore();
+authStore.initializeSession();
 app.mount("#app");

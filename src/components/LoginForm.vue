@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-// Assuming these are converted to regular TypeScript files in src/lib
 import { login, saveSession } from '../lib/auth';
 import { validateLoginForm } from '../lib/validation';
-// Assuming FormError is converted to a Vue component
-// import FormError from './FormError.vue'; 
-// Replace Lucide React icon with its Vue equivalent or embedded SVG
-import { Eye } from 'lucide-vue-next'; // Placeholder for your icon component
-
+import { Eye } from 'lucide-vue-next'; 
 // --- ROUTING ---
 const router = useRouter();
 const route = useRoute(); // useRoute to access query parameters
