@@ -1,4 +1,4 @@
-// Form validation utilities
+// Form validation utilities (Used as-is in Vue 3/TypeScript)
 
 export interface ValidationError {
   field: string;
