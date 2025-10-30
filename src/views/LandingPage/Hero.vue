@@ -88,7 +88,3 @@ const features = [
     </div>
   </section>
 </template>
-
-<style scoped>
-/* Scoped styles for this component go here if needed */
-</style>

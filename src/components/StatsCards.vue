@@ -15,16 +15,14 @@ const stats = computed(() => {
     // NOTE: If getTicketStats were async, this would require a different pattern (like an async action in Pinia)
     return getTicketStats(userId); 
   }
-  // Default stats for unauthenticated user or loading state
   return { total: 0, open: 0, inProgress: 0, closed: 0 };
 });
 
-// The card definitions, now using the imported Vue component names
 const cards = computed(() => [
   {
     label: "Total Tickets",
     value: stats.value.total,
-    icon: BarChart3, // Reference to the imported Vue component
+    icon: BarChart3, 
     color: "bg-blue-500/10 text-blue-600",
   },
   {
@@ -72,7 +70,3 @@ const cards = computed(() => [
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Scoped styles go here */
-</style>

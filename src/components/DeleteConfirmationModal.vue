@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// Import the Vue-compatible icon component
 import {AlertTriangle} from 'lucide-vue-next'; 
 
 // --- PROPS & EVENTS ---
@@ -9,10 +8,10 @@ const props = defineProps<{
   title: string;
   description: string;
   itemName: string;
-  isLoading?: boolean; // Optional prop defaults to false in React, but should be explicit here
+  isLoading?: boolean;
 }>();
 
-// Define custom events (replaces onConfirm and onCancel props)
+// Define custom events
 const emit = defineEmits<{
   (e: 'confirm'): void;
   (e: 'cancel'): void;

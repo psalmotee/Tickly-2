@@ -21,7 +21,3 @@ import LoginForm from '../../components/LoginForm.vue';
       </div>
   </main>
 </template>
-
-<style scoped>
-/* Add any view-specific styles here if needed */
-</style>

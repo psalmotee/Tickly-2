@@ -4,7 +4,6 @@ import { useRouter, RouterLink } from 'vue-router';
 // Import the Pinia store and the utility for reactive state extraction
 import { useAuthStore } from '../lib/pinnaAuth';
 import { storeToRefs } from 'pinia'; 
-// Import Lucide Vue icons
 import { LogOut, Menu, LayoutDashboard } from 'lucide-vue-next';
 
 // --- STORE & ROUTER ---

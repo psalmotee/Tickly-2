@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { getAllUsers } from '../lib/auth'; // Utility for fetching users
-import { Shield, User } from 'lucide-vue-next'; // Lucide Vue icons
+import { getAllUsers } from '../lib/auth'; 
+import { Shield, User } from 'lucide-vue-next'; 
 
 // Define the User type structure for local state
 interface UserData {
@@ -13,7 +13,6 @@ interface UserData {
 // --- STATE (ref replaces useState) ---
 const users = ref<UserData[]>([]);
 
-// --- LIFECYCLE (onMounted replaces useEffect) ---
 onMounted(() => {
   // Synchronous data fetch from local storage utility
   users.value = getAllUsers();

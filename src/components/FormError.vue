@@ -1,8 +1,6 @@
 <script setup lang="ts">
-// Import the Vue-compatible icon component
 import { AlertCircle } from 'lucide-vue-next';
 
-// Define the required props
 defineProps<{
   message: string;
 }>();

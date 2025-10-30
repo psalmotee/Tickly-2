@@ -47,7 +47,7 @@ const handleSubmit = () => {
     description.value = "";
     priority.value = "medium";
 
-    // Emit success event (replaces onSuccess)
+    // Emit success event 
     emit('success');
 
   } catch (err) {

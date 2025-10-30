@@ -1,9 +1,5 @@
 <script setup lang="ts">
-// Import the converted Vue component
 import SignupForm from '../../components/SignupForm.vue'; 
-
-// No complex logic is needed in the script block for this view,
-// as it primarily handles the layout and rendering of SignupForm.
 </script>
 
 <template>
@@ -24,7 +20,3 @@ import SignupForm from '../../components/SignupForm.vue';
     </div>
   </main>
 </template>
-
-<style scoped>
-/* Scoped styles go here if necessary */
-</style>

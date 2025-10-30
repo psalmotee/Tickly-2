@@ -2,23 +2,21 @@
 import { computed } from 'vue';
 // Import the Ticket type from the utility file
 import type { Ticket } from "../lib/tickets"; 
-// Import Vue-compatible icons
 import { Trash2, Edit2, CheckCircle2 } from 'lucide-vue-next';
 
-// --- PROPS (replaces interface) ---
-// Prop callbacks are replaced by events defined in defineEmits
+// --- PROPS  ---
 const props = defineProps<{
   ticket: Ticket;
 }>();
 
-// --- EVENTS (replaces onEdit and onDelete props) ---
+// --- EVENTS ---
 const emit = defineEmits<{
   (e: 'edit', ticket: Ticket): void;
   (e: 'delete', id: string): void;
 }>();
 
 
-// --- COMPUTED CONSTANTS (replaces static React constants) ---
+// --- COMPUTED CONSTANTS ---
 const statusColors = {
   open: "bg-amber-500/10 text-amber-700 border-amber-200",
   "in-progress": "bg-blue-500/10 text-blue-700 border-blue-200",

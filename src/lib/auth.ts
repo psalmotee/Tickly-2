@@ -1,7 +1,3 @@
-
-// src/lib/auth.ts
-// Authentication utility functions using localStorage
-
 export interface User {
   id: string;
   email: string;
@@ -21,7 +17,6 @@ const STORAGE_KEY = "Tickly_session";
  * @param session The AuthSession object.
  */
 export function saveSession(session: AuthSession): void {
-  // We can assume localStorage is available in a Vue SPA
   localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
 }
 

@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useRouter, RouterLink } from "vue-router"; // Replaces next/navigation and next/link
-import { useAuthStore } from "../../lib/pinnaAuth"; // Centralized authentication logic
-import { getAllTicketsStats } from "../../lib/tickets"; // Utility for fetching stats
-import { isAdmin } from "../../lib/admin"; // Utility for admin check
-
+import { useRouter, RouterLink } from "vue-router"; 
+import { useAuthStore } from "../../lib/pinnaAuth"; 
+import { getAllTicketsStats } from "../../lib/tickets"; 
+import { isAdmin } from "../../lib/admin"; 
 import AdminHeader from "../../components/AdminHeader.vue";
 import AdminStats from "../../components/AdminStats.vue";
-
-// Import Lucide Vue icons
 import { TrendingUp, Users, Ticket } from "lucide-vue-next";
 
 // --- STORE & ROUTER ---
@@ -22,7 +19,7 @@ const isLoading = ref(true);
 // Ensure this matches the structure: { total: number, open: number, inProgress: number, closed: number, byUser: Array<{ name: string, count: number, open: number, closed: number }> }
 const stats = ref<ReturnType<typeof getAllTicketsStats> | null>(null);
 
-// --- LIFECYCLE / SIDE EFFECTS (onMounted replaces useEffect) ---
+// --- LIFECYCLE / SIDE EFFECTS ---
 onMounted(() => {
   // 1. Authentication Check
   const session = authStore.session;

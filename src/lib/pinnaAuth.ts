@@ -1,9 +1,7 @@
-// src/stores/auth.ts
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 
-// Import interfaces and functions from your provided file
 import {
   type AuthSession,
   type User,

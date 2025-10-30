@@ -1,6 +1,4 @@
-// src/lib/admin.ts
-
-import { getSession, type AuthSession } from "./auth"; // Path adjusted for src/lib/auth.ts
+import { getSession, type AuthSession } from "./auth";
 
 /**
  * Checks if a given session object belongs to an administrator.

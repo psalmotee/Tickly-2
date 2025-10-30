@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router'; // Replaces next/navigation
-import { useAuthStore } from '../../lib/pinnaAuth'; // Centralized authentication logic
-import { isAdmin } from '../../lib/admin'; // Utility for admin check
-import AdminHeader from '../../components/AdminHeader.vue'; // Converted sub-component
-import AdminTicketList from '../../components/AdminTicketList.vue'; // Converted sub-component
+import { useRouter } from 'vue-router'; 
+import { useAuthStore } from '../../lib/pinnaAuth'; 
+import { isAdmin } from '../../lib/admin'; 
+import AdminHeader from '../../components/AdminHeader.vue'; 
+import AdminTicketList from '../../components/AdminTicketList.vue'; 
 
 // --- STATE ---
 const router = useRouter();
 const authStore = useAuthStore();
 const isLoading = ref(true);
 
-// --- LIFECYCLE / SIDE EFFECTS (onMounted replaces useEffect) ---
+// --- LIFECYCLE / SIDE EFFECTS  ---
 onMounted(() => {
   // 1. Authentication Check
   const session = authStore.session;

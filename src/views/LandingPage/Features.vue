@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Zap, ChartColumnDecreasing, Handshake } from 'lucide-vue-next'
 
-// The icons are now passed as component references, not rendered JSX elements.
 const features = [
   {
     title: "Instant Ticketing",
@@ -40,7 +39,6 @@ const features = [
           :key="feature.title"
           class="rounded-lg border border-border bg-background p-6 hover:border-primary/50 transition-colors"
         >
-          <!-- FIX: Use the <component> tag with the 'is' attribute to render the icon component dynamically. -->
           <div class="mb-3 text-primary">
             <component :is="feature.icon" class="h-8 w-8" />
           </div>

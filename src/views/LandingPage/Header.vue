@@ -1,8 +1,5 @@
 <script setup lang="ts">
-// Import Vue Router's component for navigation
 import { RouterLink } from 'vue-router';
-
-// This component is purely presentational, so the script block is minimal.
 </script>
 
 <template>
@@ -37,7 +34,3 @@ import { RouterLink } from 'vue-router';
     </div>
   </nav>
 </template>
-
-<style scoped>
-/* Scoped styles go here if needed */
-</style>

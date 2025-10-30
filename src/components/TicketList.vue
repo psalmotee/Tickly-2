@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue';
-// Import utility functions and type
 import { getTicketsByUser, deleteTicket, type Ticket } from '../lib/tickets';
-// Use the Pinia Auth Store to safely access the session/user ID
 import { useAuthStore } from '../lib/pinnaAuth'; 
-// Use the global toast function (assuming vue-toastification setup)
 import { useToast } from 'vue-toastification';
-
-// Import converted Vue components
 import TicketCard from './TicketCard.vue';
 import Modal from './Modal.vue';
 import EditTicketForm from './EditTicketForm.vue';
@@ -42,12 +37,12 @@ const fetchTickets = () => {
   }
 };
 
-// 1. Initial Load (replaces useEffect's initial call)
+// 1. Initial Load 
 onMounted(() => {
   fetchTickets();
 });
 
-// 2. Refresh Watcher (replaces useEffect's dependency array)
+// 2. Refresh Watcher 
 watch(() => props.refreshTrigger, () => {
   fetchTickets();
 });
@@ -74,7 +69,7 @@ const handleConfirmDelete = () => {
     if (success) {
       // Refresh the local list immediately after deletion
       fetchTickets();
-      toast.success("Ticket deleted successfully 🗑️");
+      toast.success("Ticket deleted successfully ");
     } else {
       toast.error("Ticket not found or failed to delete.");
     }

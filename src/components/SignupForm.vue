@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-// We only need the validation utility
 import { validateSignupForm } from '../lib/validation'; 
 import { Eye } from 'lucide-vue-next'; 
 import FormError from './FormError.vue';
-import { useAuthStore } from '../lib/pinnaAuth'; // <-- Import the Pinia Store
+import { useAuthStore } from '../lib/pinnaAuth'; 
 
 // --- STORE & ROUTING ---
 const router = useRouter();

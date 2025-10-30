@@ -14,10 +14,9 @@ const emit = defineEmits<{
 
 // --- METHODS ---
 const handleClose = () => {
-  emit('close'); // This is correct
+  emit('close'); 
 };
 
-// Optional: Add logic for closing with the Escape key
 const handleKeydown = (e: KeyboardEvent) => {
   if (e.key === 'Escape' && props.isOpen) {
     handleClose();

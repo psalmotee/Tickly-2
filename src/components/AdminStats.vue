@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-// Import Lucide Vue icons
 import { BarChart3, AlertCircle, CheckCircle2, Clock } from 'lucide-vue-next';
 
 // Define the required props
@@ -17,7 +16,7 @@ const stats = computed(() => [
   {
     label: "Total Tickets",
     value: props.total,
-    icon: BarChart3, // Use the imported Vue component directly
+    icon: BarChart3,
     color: "bg-blue-500/10 text-blue-600",
   },
   {

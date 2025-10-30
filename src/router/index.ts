@@ -1,13 +1,10 @@
 
 
-// router/index.ts
-
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../views/HomePage.vue";
 import Features from "../views/LandingPage/Features.vue";
 import Login from "../views/Auth/Login.vue";
 import Signup from "../views/Auth/Signup.vue";
-// 1. Import the new Dashboard component
 import UsersDashboard from "../views/Users/UsersDashboard.vue";
 import TicketPage from "../views/Users/TicketPage.vue";
 import AdminDashboard from "../views/Admin/AdminDashboard.vue";

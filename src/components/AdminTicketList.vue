@@ -6,9 +6,9 @@ import {
   deleteTicket,
   type Ticket,
 } from '../lib/tickets';
-import Modal from './Modal.vue'; // Assuming converted component path
-import DeleteConfirmationModal from './DeleteConfirmationModal.vue'; // Assuming converted component path
-import { Trash2, ChevronDown, CheckCircle2 } from 'lucide-vue-next'; // Lucide Vue icons
+import Modal from './Modal.vue'; 
+import DeleteConfirmationModal from './DeleteConfirmationModal.vue'; 
+import { Trash2, ChevronDown, CheckCircle2 } from 'lucide-vue-next'; 
 import { useToast } from 'vue-toastification';
 
 
@@ -72,7 +72,7 @@ const handleStatusChange = (
   updateTicket(ticket.id, { status });
   loadTickets();
   editingId.value = null;
-  toast.success(`Ticket marked as ${getStatusLabel(status)} ✅`);
+  toast.success(`Ticket marked as ${getStatusLabel(status)} `);
 };
 
 const handleDeleteClick = (ticket: Ticket) => {
@@ -91,10 +91,9 @@ const handleConfirmDelete = async () => {
   
   deleteModal.value = { isOpen: false, ticket: null };
   isLoading.value = false;
-  toast.success('Ticket deleted successfully 🗑️');
+  toast.success('Ticket deleted successfully');
 };
 
-// --- LIFECYCLE (onMounted replaces useEffect) ---
 onMounted(() => {
   loadTickets();
 });

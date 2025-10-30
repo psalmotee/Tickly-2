@@ -5,7 +5,6 @@ import DashboardHeader from '../../components/DashboardHeader.vue';
 import TicketList from '../../components/TicketList.vue'; 
 import CreateTicketForm from '../../components/CreateTicketForm.vue';
 import Modal from '../../components/Modal.vue'; 
-// Placeholder for the Vue-compatible icon component
 import {Plus} from 'lucide-vue-next'; 
 
 // --- STATE (ref replaces useState) ---

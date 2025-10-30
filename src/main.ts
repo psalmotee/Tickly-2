@@ -1,8 +1,6 @@
 
-// src/main.ts
-
 import { createApp } from "vue";
-import { useAuthStore } from "./lib/pinnaAuth"; // Assuming this path is correct now
+import { useAuthStore } from "./lib/pinnaAuth";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
@@ -16,7 +14,7 @@ const pinia = createPinia(); // 1. Create the Pinia instance
 const toastOptions: PluginOptions = {
   position: "top-right",
   timeout: 3000,
-  hideProgressBar: true, // Add other react-toastify options as needed
+  hideProgressBar: true,
 };
 
 app.use(pinia); // 2. Register Pinia with the app

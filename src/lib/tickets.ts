@@ -1,5 +1,3 @@
-// Ticket management utilities
-
 export type TicketStatus = "open" | "in-progress" | "closed";
 
 export interface Ticket {

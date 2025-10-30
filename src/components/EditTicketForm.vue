@@ -1,10 +1,7 @@
-<!-- src/components/EditTicketForm.vue -->
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { updateTicket, type Ticket, type TicketStatus } from '../lib/tickets';
-// Use the global toast function (assuming vue-toastification setup)
 import { useToast } from 'vue-toastification';
-// Import the Vue-compatible icon component
 import {AlertCircle} from 'lucide-vue-next';
 
 // --- PROPS & EVENTS ---
@@ -14,7 +11,6 @@ const props = defineProps<{
   ticket: Ticket;
 }>();
 
-// Define the custom event (replaces onSuccess)
 const emit = defineEmits<{
   (e: 'success'): void;
 }>();
@@ -22,7 +18,6 @@ const emit = defineEmits<{
 // --- SETUP ---
 const toast = useToast();
 
-// --- STATE (ref replaces useState) ---
 // Initialize form fields with prop values
 const title = ref(props.ticket.title);
 const description = ref(props.ticket.description);
@@ -70,7 +65,6 @@ const handleSubmit = () => {
     });
     
     toast.success("Ticket updated successfully!");
-    // Emit the success event (replaces onSuccess)
     emit('success'); 
 
   } catch (err) {
@@ -83,7 +77,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <!-- @submit.prevent handles form submission in Vue -->
+  <!-- @submit.prevent handles form submission -->
   <form @submit.prevent="handleSubmit" class="space-y-4">
     <!-- Error Alert -->
     <div v-if="error" class="flex gap-3 rounded-lg bg-destructive/10 p-3 border border-destructive/20">
