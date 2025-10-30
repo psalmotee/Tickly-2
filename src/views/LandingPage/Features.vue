@@ -1,19 +1,22 @@
-<script setup>
+<script setup lang="ts">
+import { Zap, ChartColumnDecreasing, Handshake } from 'lucide-vue-next'
+
+// The icons are now passed as component references, not rendered JSX elements.
 const features = [
   {
     title: "Instant Ticketing",
     description: "Create tickets in seconds and move faster together",
-    icon: "⚡",
+    icon: Zap,
   },
   {
     title: "Smart Status",
     description: "Know what’s happening at a glance with clear visuals",
-    icon: "📊",
+    icon: ChartColumnDecreasing,
   },
   {
     title: "Team Harmony",
     description: "Keep everyone aligned with shared visibility and updates",
-    icon: "🤝",
+    icon: Handshake,
   },
 ]
 </script>
@@ -37,7 +40,10 @@ const features = [
           :key="feature.title"
           class="rounded-lg border border-border bg-background p-6 hover:border-primary/50 transition-colors"
         >
-          <div class="text-3xl mb-3">{{ feature.icon }}</div>
+          <!-- FIX: Use the <component> tag with the 'is' attribute to render the icon component dynamically. -->
+          <div class="mb-3 text-primary">
+            <component :is="feature.icon" class="h-8 w-8" />
+          </div>
           <h3 class="text-lg font-semibold text-foreground mb-2">
             {{ feature.title }}
           </h3>
