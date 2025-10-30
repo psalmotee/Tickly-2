@@ -1,95 +1,94 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
-
 import { useRouter, useRoute } from 'vue-router';
-import { login, saveSession } from '../lib/auth';
 import { validateLoginForm } from '../lib/validation';
 import { Eye } from 'lucide-vue-next'; 
 import FormError from './FormError.vue';
-// --- ROUTING ---
-const router = useRouter();
-const route = useRoute(); // useRoute to access query parameters
+import { useAuthStore } from '../lib/pinnaAuth'; // <-- Import the Pinia Store
 
-// --- STATE (Ref replaces useState) ---
+// --- STORE & ROUTING ---
+const router = useRouter();
+const route = useRoute(); 
+const authStore = useAuthStore(); // <-- Initialize the store
+
+// --- STATE ---
 const email = ref('');
 const password = ref('');
 const showPassword = ref(false);
 const error = ref('');
-// Using a Record<string, string> for field errors
 const fieldErrors = ref<Record<string, string>>({});
 const isLoading = ref(false);
 const isAdmin = ref(false);
 
-// --- SIDE EFFECTS (watch & onMounted replace useEffect) ---
+// --- SIDE EFFECTS ---
 
-// 1. Initial setup logic (onMounted)
+// Sets demo credentials based on the 'admin' query parameter
 onMounted(() => {
-  // Check the initial route query parameter when the component mounts
-  const adminParam = route.query.admin as string | undefined;
-  if (adminParam === 'true') {
-    isAdmin.value = true;
-    email.value = 'admin@example.com';
-    password.value = 'admin123';
-  } else {
-    isAdmin.value = false;
-  }
+    const adminParam = route.query.admin as string | undefined;
+    if (adminParam === 'true') {
+        isAdmin.value = true;
+        email.value = 'admin@example.com';
+        password.value = 'admin123';
+    } else {
+        isAdmin.value = false;
+        // Optionally set default user credentials here if not admin
+        // email.value = 'demo@example.com';
+        // password.value = 'demo123';
+    }
 });
 
-// 2. Logic to watch for changes in the 'admin' query parameter
+// Watch logic to handle dynamic switching between user/admin demo
 watch(
-  () => route.query.admin,
-  (newAdminParam) => {
-    const adminParam = newAdminParam === 'true';
-    isAdmin.value = adminParam;
+    () => route.query.admin,
+    (newAdminParam) => {
+        const adminParam = newAdminParam === 'true';
+        isAdmin.value = adminParam;
 
-    if (adminParam) {
-      email.value = 'admin@example.com';
-      password.value = 'admin123';
-    } else {
-      // Clear fields if switching back from admin mode, or set default user demo
-      email.value = '';
-      password.value = '';
-    }
-  },
-  { immediate: true } // Run immediately on component setup (optional, but good practice)
+        if (adminParam) {
+            email.value = 'admin@example.com';
+            password.value = 'admin123';
+        } else {
+            email.value = '';
+            password.value = '';
+        }
+    },
+    { immediate: true }
 );
 
-// --- METHODS (Replacing the handleSubmit function) ---
+// --- METHODS ---
 const handleSubmit = async () => {
-  // Prevent default is handled implicitly by Vue's @submit.prevent
-  error.value = '';
-  fieldErrors.value = {};
-  isLoading.value = true;
+    error.value = '';
+    fieldErrors.value = {};
+    isLoading.value = true;
 
-  const validation = validateLoginForm(email.value, password.value);
+    const validation = validateLoginForm(email.value, password.value);
 
-  if (!validation.isValid) {
-    const errors: Record<string, string> = {};
-    validation.errors.forEach((err) => {
-      errors[err.field] = err.message;
-    });
-    fieldErrors.value = errors;
+    if (!validation.isValid) {
+        const errors: Record<string, string> = {};
+        validation.errors.forEach((err) => {
+            errors[err.field] = err.message;
+        });
+        fieldErrors.value = errors;
+        isLoading.value = false;
+        return;
+    }
+
+    // 1. CALL THE ASYNC PINIA LOGIN ACTION
+    const result = await authStore.login(email.value, password.value); 
+
+    if (result.success) {
+        // 2. USE PINIA STATE FOR REDIRECT
+        // Pinia's login action already saves the session and updates the state.
+        // We only need to push the route based on the *current* user role.
+        router.push(
+            authStore.isAdmin ? '/admin' : '/dashboard'
+        );
+    } else {
+        // Handle failed login
+        error.value = result.error || 'Login failed due to an unknown error.';
+    }
+
     isLoading.value = false;
-    return;
-  }
-
-  // Simulate API call
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  // The login function from your lib/auth.ts remains synchronous for this simulation
-  const result = login(email.value, password.value);
-
-  if (result.success && result.session) {
-    saveSession(result.session);
-    // Use Vue Router's push method
-    router.push(
-      result.session.user.role === 'admin' ? '/admin' : '/dashboard'
-    );
-  } else {
-    error.value = result.error || 'Login failed';
-  }
-
-  isLoading.value = false;
 };
 </script>
 

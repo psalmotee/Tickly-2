@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { signup, login, saveSession } from '../lib/auth';
-import { validateSignupForm } from '../lib/validation';
+// We only need the validation utility
+import { validateSignupForm } from '../lib/validation'; 
 import { Eye } from 'lucide-vue-next'; 
+import FormError from './FormError.vue';
+import { useAuthStore } from '../lib/pinnaAuth'; // <-- Import the Pinia Store
 
-// --- ROUTING ---
+// --- STORE & ROUTING ---
 const router = useRouter();
+const authStore = useAuthStore(); // <-- Initialize the store
 
-// --- STATE (Ref replaces useState) ---
+// --- STATE ---
 const name = ref('');
 const email = ref('');
 const password = ref('');
@@ -16,13 +19,11 @@ const confirmPassword = ref('');
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
 const error = ref('');
-// Using a Record<string, string> for field errors
 const fieldErrors = ref<Record<string, string>>({});
 const isLoading = ref(false);
 
 // --- METHODS ---
 const handleSubmit = async () => {
-  // @submit.prevent handles e.preventDefault()
   error.value = '';
   fieldErrors.value = {};
   isLoading.value = true;
@@ -44,26 +45,21 @@ const handleSubmit = async () => {
     return;
   }
 
-  // Simulate API call
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  // 1. CALL THE ASYNC PINIA SIGNUP ACTION (This action includes auto-login!)
+  const result = await authStore.signup(
+      name.value, 
+      email.value, 
+      password.value
+  );
 
-  const signupResult = signup(email.value, password.value, name.value);
-
-  if (!signupResult.success) {
-    error.value = signupResult.error || "Signup failed";
-    isLoading.value = false;
-    return;
-  }
-
-  // Auto-login after signup (logic remains the same, but using .value)
-  const loginResult = login(email.value, password.value);
-
-  if (loginResult.success && loginResult.session) {
-    saveSession(loginResult.session);
-    // Use Vue Router's push method
-    router.push("/dashboard");
+  if (result.success) {
+    // 2. REDIRECT ON SUCCESS
+    // Since the store's signup handles auto-login, we can redirect to the dashboard.
+    // The router guard will handle admin/user specific routing later.
+    router.push('/dashboard'); 
   } else {
-    error.value = "Signup successful, but login failed. Please try logging in.";
+    // Handle failed signup (e.g., email already registered)
+    error.value = result.error || 'Signup failed due to an unknown error.';
   }
 
   isLoading.value = false;
@@ -73,29 +69,27 @@ const handleSubmit = async () => {
 <template>
   <div class="w-full max-w-md">
     <div class="rounded-lg border border-border bg-card p-8">
-      <h1 class="text-2xl font-bold text-foreground mb-2">
-        Create account
-      </h1>
+      <h1 class="text-2xl font-bold text-foreground mb-2">Create Account</h1>
       <p class="text-muted-foreground mb-6">
-        Join Tickly and start managing tickets
+        Register to get started with Tickly ticket management
       </p>
 
       <FormError v-if="error" :message="error" />
 
       <form @submit.prevent="handleSubmit" class="space-y-4 mt-6">
-        
+        <!-- Name Field -->
         <div>
           <label
             for="name"
             class="block text-sm font-medium text-foreground mb-2"
           >
-            Full name
+            Name
           </label>
           <input
             id="name"
             type="text"
             v-model="name"
-            placeholder="John Doe"
+            placeholder="Your name"
             :class="`w-full rounded-lg border px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 ${
               fieldErrors.name
                 ? 'border-destructive bg-destructive/5'
@@ -108,6 +102,7 @@ const handleSubmit = async () => {
           </p>
         </div>
 
+        <!-- Email Field -->
         <div>
           <label
             for="email"
@@ -132,6 +127,7 @@ const handleSubmit = async () => {
           </p>
         </div>
 
+        <!-- Password Field -->
         <div>
           <label
             for="password"
@@ -158,7 +154,8 @@ const handleSubmit = async () => {
               class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               :disabled="isLoading"
             >
-              <Eye class="h-4 w-4" />
+              <Eye v-if="showPassword" class="h-4 w-4" />
+              <Eye v-else class="h-4 w-4" />
             </button>
           </div>
           <p v-if="fieldErrors.password" class="text-xs text-destructive mt-1">
@@ -166,12 +163,13 @@ const handleSubmit = async () => {
           </p>
         </div>
 
+        <!-- Confirm Password Field -->
         <div>
           <label
             for="confirmPassword"
             class="block text-sm font-medium text-foreground mb-2"
           >
-            Confirm password
+            Confirm Password
           </label>
           <div class="relative">
             <input
@@ -192,7 +190,8 @@ const handleSubmit = async () => {
               class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               :disabled="isLoading"
             >
-              <Eye class="h-4 w-4" />
+              <Eye v-if="showConfirmPassword" class="h-4 w-4" />
+              <Eye v-else class="h-4 w-4" />
             </button>
           </div>
           <p v-if="fieldErrors.confirmPassword" class="text-xs text-destructive mt-1">

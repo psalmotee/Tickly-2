@@ -3,17 +3,17 @@ const features = [
   {
     title: "Instant Ticketing",
     description: "Create tickets in seconds and move faster together",
-    icon: "",
+    icon: "⚡",
   },
   {
     title: "Smart Status",
     description: "Know what’s happening at a glance with clear visuals",
-    icon: "",
+    icon: "📊",
   },
   {
     title: "Team Harmony",
     description: "Keep everyone aligned with shared visibility and updates",
-    icon: "",
+    icon: "🤝",
   },
 ]
 </script>
